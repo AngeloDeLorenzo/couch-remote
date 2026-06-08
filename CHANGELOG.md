@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 - 2026-06-08
+
+- Updated Flatpak manifest to use pinned Python wheel sources with SHA256 hashes
+- Removed network access from the Flatpak build sandbox
+- Verified Flatpak build with `--disable-download`
+
 ## 1.0.0 - 2026-06-08
 
 First stable Android TV and Google TV focused release.

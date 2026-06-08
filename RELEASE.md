@@ -22,7 +22,7 @@
 - [x] Run Flatpak CLI smoke test
 - [x] Capture public screenshot with a generic TV name
 - [ ] Test pairing on at least two additional Android TV or Google TV devices
-- [ ] Regenerate Flatpak manifest with offline Python dependency sources before Flathub submission
+- [x] Regenerate Flatpak manifest with pinned/offline Python dependency sources
 - [x] Create Git tag `v1.0.0`
 - [x] Push `main` and `v1.0.0` to GitHub
 - [x] Create GitHub release with wheel and source distribution
@@ -32,4 +32,4 @@
 - Only Android TV and Google TV devices are supported.
 - Some TV models expose manufacturer-specific key behavior. Use **Settings** and **Test Keys** to remap actions when needed.
 - Wake-on-LAN depends on the TV keeping its network interface awake in standby.
-- The current Flatpak manifest is suitable for local builds. Flathub submission should replace networked `pip` build access with pinned Python dependency sources.
+- The current Flatpak manifest uses pinned Python wheels suitable for x86_64 builds. Multi-architecture Flathub submission may need additional wheels or source-based dependency builds.

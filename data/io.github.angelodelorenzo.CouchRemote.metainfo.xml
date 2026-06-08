@@ -31,6 +31,11 @@
     <binary>couch-remote-gui</binary>
   </provides>
   <releases>
+    <release version="1.0.1" date="2026-06-08">
+      <description>
+        <p>Updated Flatpak packaging to use pinned offline Python dependency sources.</p>
+      </description>
+    </release>
     <release version="1.0.0" date="2026-06-08">
       <description>
         <p>First stable Android TV and Google TV focused release.</p>
