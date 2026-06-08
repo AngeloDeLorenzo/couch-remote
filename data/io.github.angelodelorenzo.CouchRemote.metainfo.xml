@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.angelodelorenzo.CouchRemote</id>
+  <name>Couch Remote</name>
+  <summary>Remote control for Android TV and Google TV</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="io.github.angelodelorenzo">
+    <name>Angelo De Lorenzo</name>
+  </developer>
+  <description>
+    <p>Couch Remote controls Android TV and Google TV devices on the local network from a compact GTK interface inspired by physical TV remotes.</p>
+    <p>It supports network discovery, pairing, saved device profiles, Wake-on-LAN, configurable key mappings, diagnostics, text input, app launching, and per-device button remapping for model-specific behavior.</p>
+  </description>
+  <url type="homepage">https://github.com/AngeloDeLorenzo/couch-remote</url>
+  <url type="bugtracker">https://github.com/AngeloDeLorenzo/couch-remote/issues</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/AngeloDeLorenzo/couch-remote/main/docs/screenshots/main-window.png</image>
+      <caption>Main remote control window</caption>
+    </screenshot>
+  </screenshots>
+  <launchable type="desktop-id">io.github.angelodelorenzo.CouchRemote.desktop</launchable>
+  <categories>
+    <category>Network</category>
+    <category>Utility</category>
+  </categories>
+  <content_rating type="oars-1.1" />
+  <provides>
+    <binary>couch-remote</binary>
+    <binary>couch-remote-gui</binary>
+  </provides>
+  <releases>
+    <release version="1.0.0" date="2026-06-08">
+      <description>
+        <p>First stable Android TV and Google TV focused release.</p>
+      </description>
+    </release>
+  </releases>
+</component>

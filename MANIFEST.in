@@ -1,0 +1,8 @@
+include CHANGELOG.md
+include LICENSE
+include README.md
+include RELEASE.md
+include data/io.github.angelodelorenzo.CouchRemote.desktop
+include data/io.github.angelodelorenzo.CouchRemote.metainfo.xml
+include data/icons/hicolor/scalable/apps/io.github.angelodelorenzo.CouchRemote.svg
+recursive-include tests *.py

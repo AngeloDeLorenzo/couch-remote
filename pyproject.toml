@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "couch-remote"
+version = "1.0.0"
+description = "GTK remote control for Android TV and Google TV devices on the local network."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "GPL-3.0-or-later"
+authors = [
+  { name = "Angelo De Lorenzo" }
+]
+dependencies = [
+  "androidtvremote2>=0.3.1",
+]
+
+[project.scripts]
+couch-remote = "couch_remote.cli:main"
+couch-remote-gui = "couch_remote.gui:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.data-files]
+"share/applications" = ["data/io.github.angelodelorenzo.CouchRemote.desktop"]
+"share/metainfo" = ["data/io.github.angelodelorenzo.CouchRemote.metainfo.xml"]
+"share/icons/hicolor/scalable/apps" = ["data/icons/hicolor/scalable/apps/io.github.angelodelorenzo.CouchRemote.svg"]
