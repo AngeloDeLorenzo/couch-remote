@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2 - 2026-06-08
+
+- Renamed Flatpak app ID to `io.github.angelodelorenzo.couch-remote` to match the GitHub repository
+- Added aarch64 Python dependency wheels to the Flatpak manifest
+- Removed unnecessary XDG config filesystem permission
+- Added IPC sharing required for fallback X11
+
 ## 1.0.1 - 2026-06-08
 
 - Updated Flatpak manifest to use pinned Python wheel sources with SHA256 hashes

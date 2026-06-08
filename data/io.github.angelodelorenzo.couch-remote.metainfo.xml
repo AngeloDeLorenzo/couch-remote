@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>io.github.angelodelorenzo.CouchRemote</id>
+  <id>io.github.angelodelorenzo.couch-remote</id>
   <name>Couch Remote</name>
   <summary>Remote control for Android TV and Google TV</summary>
   <metadata_license>CC0-1.0</metadata_license>
@@ -20,7 +20,7 @@
       <caption>Main remote control window</caption>
     </screenshot>
   </screenshots>
-  <launchable type="desktop-id">io.github.angelodelorenzo.CouchRemote.desktop</launchable>
+  <launchable type="desktop-id">io.github.angelodelorenzo.couch-remote.desktop</launchable>
   <categories>
     <category>Network</category>
     <category>Utility</category>
@@ -31,6 +31,11 @@
     <binary>couch-remote-gui</binary>
   </provides>
   <releases>
+    <release version="1.0.2" date="2026-06-08">
+      <description>
+        <p>Updated the Flatpak application ID and manifest for Flathub submission.</p>
+      </description>
+    </release>
     <release version="1.0.1" date="2026-06-08">
       <description>
         <p>Updated Flatpak packaging to use pinned offline Python dependency sources.</p>

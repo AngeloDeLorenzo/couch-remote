@@ -99,13 +99,13 @@ Pairing certificates are required to control Android TV devices. Couch Remote do
 A Flatpak manifest is provided in:
 
 ```text
-packaging/flatpak/io.github.angelodelorenzo.CouchRemote.yml
+packaging/flatpak/io.github.angelodelorenzo.couch-remote.yml
 ```
 
 The app id is:
 
 ```text
-io.github.angelodelorenzo.CouchRemote
+io.github.angelodelorenzo.couch-remote
 ```
 
 ## Limitations

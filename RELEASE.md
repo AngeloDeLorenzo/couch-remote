@@ -32,4 +32,4 @@
 - Only Android TV and Google TV devices are supported.
 - Some TV models expose manufacturer-specific key behavior. Use **Settings** and **Test Keys** to remap actions when needed.
 - Wake-on-LAN depends on the TV keeping its network interface awake in standby.
-- The current Flatpak manifest uses pinned Python wheels suitable for x86_64 builds. Multi-architecture Flathub submission may need additional wheels or source-based dependency builds.
+- The current Flatpak manifest uses pinned Python wheels for x86_64 and aarch64 builds.

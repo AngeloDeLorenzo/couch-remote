@@ -2,7 +2,7 @@ include CHANGELOG.md
 include LICENSE
 include README.md
 include RELEASE.md
-include data/io.github.angelodelorenzo.CouchRemote.desktop
-include data/io.github.angelodelorenzo.CouchRemote.metainfo.xml
-include data/icons/hicolor/scalable/apps/io.github.angelodelorenzo.CouchRemote.svg
+include data/io.github.angelodelorenzo.couch-remote.desktop
+include data/io.github.angelodelorenzo.couch-remote.metainfo.xml
+include data/icons/hicolor/scalable/apps/io.github.angelodelorenzo.couch-remote.svg
 recursive-include tests *.py
