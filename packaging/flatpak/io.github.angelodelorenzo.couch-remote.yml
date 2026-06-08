@@ -12,7 +12,7 @@ modules:
   - name: python-dependencies
     buildsystem: simple
     build-commands:
-      - pip3 install --prefix=/app --no-index --find-links=. androidtvremote2==0.3.1 aiofiles==25.1.0 cryptography==48.0.0 cffi==2.0.0 protobuf==7.35.0 pycparser==3.0
+      - pip3 install --prefix=/app --no-index --find-links=. androidtvremote2==0.3.1 aiofiles==25.1.0 cryptography==48.0.0 cffi==2.0.0 protobuf==7.35.0 pycparser==3.0 zeroconf==0.149.16 ifaddr==0.2.0
     sources:
       - type: file
         url: https://files.pythonhosted.org/packages/70/43/7b0fabee435bf1cbb37c04ee644f142af8056313a6babfbf2a82c3030323/androidtvremote2-0.3.1-py3-none-any.whl
@@ -53,6 +53,19 @@ modules:
       - type: file
         url: https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl
         sha256: b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992
+      - type: file
+        url: https://files.pythonhosted.org/packages/7c/9e/8a7eef9c9c4af9f5a90e95703db1adbfc932453d01679f719f84323bcf0a/zeroconf-0.149.16-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+        sha256: b6cb2873ae74265e28756f83454d1fde53eaaed9bc380bb43ccb2ac42b4b5a5a
+        only-arches:
+          - x86_64
+      - type: file
+        url: https://files.pythonhosted.org/packages/17/db/18b63b074b966f6374d03d8cd62a5276ab8796021dc798bf79c4723a04ab/zeroconf-0.149.16-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl
+        sha256: 58efbb338f1ac44b62cfe92999e4476c2051288729de2f6ba8939c977acdd0c5
+        only-arches:
+          - aarch64
+      - type: file
+        url: https://files.pythonhosted.org/packages/9c/1f/19ebc343cc71a7ffa78f17018535adc5cbdd87afb31d7c34874680148b32/ifaddr-0.2.0-py3-none-any.whl
+        sha256: 085e0305cfe6f16ab12d72e2024030f5d52674afad6911bb1eee207177b8a748
 
   - name: couch-remote
     buildsystem: simple

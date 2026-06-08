@@ -21,7 +21,7 @@ LEGACY_CERT = OLD_BASE / "client.pem"
 LEGACY_KEY = OLD_BASE / "key.pem"
 DEFAULT_NAME = "Living Room TV"
 CLIENT_NAME = "Couch Remote"
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 
 ALIASES = {
     "ok": "DPAD_CENTER",
@@ -513,7 +513,53 @@ async def pair_device(name: str, host: str, code: str | None = None, mac: str = 
     print(f"Pairing complete: {name} ({host})")
 
 
-def scan_devices() -> list[dict]:
+def _decode_service_name(name: str) -> str:
+    label = name.split("._androidtvremote2._tcp.", 1)[0].rstrip(".")
+    return label.replace("\\032", " ").replace("\\046", "&") or "Android TV"
+
+
+def _scan_devices_zeroconf(timeout: float = 6.0) -> list[dict]:
+    try:
+        from zeroconf import ServiceBrowser, ServiceListener, Zeroconf
+    except ImportError:
+        return []
+
+    service_type = "_androidtvremote2._tcp.local."
+    devices: dict[tuple[str, str], dict] = {}
+
+    class Listener(ServiceListener):
+        def add_service(self, zc, type_, name) -> None:
+            info = zc.get_service_info(type_, name, timeout=2000)
+            if not info:
+                return
+            addresses = info.parsed_scoped_addresses() or info.parsed_addresses()
+            if not addresses:
+                return
+            host = next((address for address in addresses if "." in address), addresses[0])
+            device = {"name": _decode_service_name(name), "host": host, "mac": ""}
+            for key, value in info.properties.items():
+                text_key = key.decode("utf-8", "ignore") if isinstance(key, bytes) else str(key)
+                text_value = value.decode("utf-8", "ignore") if isinstance(value, bytes) else str(value)
+                if text_key == "bt":
+                    device["bluetooth_mac"] = text_value.lower()
+            devices[(device["name"], device["host"])] = device
+
+        def update_service(self, zc, type_, name) -> None:
+            self.add_service(zc, type_, name)
+
+        def remove_service(self, zc, type_, name) -> None:
+            return None
+
+    zeroconf = Zeroconf()
+    try:
+        ServiceBrowser(zeroconf, service_type, listener=Listener())
+        time.sleep(timeout)
+    finally:
+        zeroconf.close()
+    return list(devices.values())
+
+
+def _scan_devices_avahi() -> list[dict]:
     try:
         result = subprocess.run(
             ["avahi-browse", "-rt", "_androidtvremote2._tcp"],
@@ -544,6 +590,10 @@ def scan_devices() -> list[dict]:
         if device.get("host"):
             unique[(device["name"], device["host"])] = device
     return list(unique.values())
+
+
+def scan_devices() -> list[dict]:
+    return _scan_devices_zeroconf() or _scan_devices_avahi()
 
 
 def list_devices() -> None:

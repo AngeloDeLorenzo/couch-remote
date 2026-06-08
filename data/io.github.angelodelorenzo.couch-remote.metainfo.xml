@@ -31,6 +31,11 @@
     <binary>couch-remote-gui</binary>
   </provides>
   <releases>
+    <release version="1.0.3" date="2026-06-09">
+      <description>
+        <p>Fixed Android TV discovery inside the Flatpak sandbox.</p>
+      </description>
+    </release>
     <release version="1.0.2" date="2026-06-08">
       <description>
         <p>Updated the Flatpak application ID and manifest for Flathub submission.</p>

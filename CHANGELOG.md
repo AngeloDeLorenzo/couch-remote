@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3 - 2026-06-09
+
+- Fixed Android TV discovery inside Flatpak by using Python mDNS discovery instead of relying on the host `avahi-browse` command
+- Added pinned Flatpak wheels for `zeroconf` and `ifaddr`
+
 ## 1.0.2 - 2026-06-08
 
 - Renamed Flatpak app ID to `io.github.angelodelorenzo.couch-remote` to match the GitHub repository
