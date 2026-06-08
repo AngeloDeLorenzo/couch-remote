@@ -21,7 +21,7 @@ LEGACY_CERT = OLD_BASE / "client.pem"
 LEGACY_KEY = OLD_BASE / "key.pem"
 DEFAULT_NAME = "Living Room TV"
 CLIENT_NAME = "Couch Remote"
-VERSION = "1.0.3"
+VERSION = "1.0.4"
 
 ALIASES = {
     "ok": "DPAD_CENTER",
@@ -505,11 +505,11 @@ async def pair_device(name: str, host: str, code: str | None = None, mac: str = 
     device = put_device(name, host, mac)
     remote = remote_for(device)
     await ensure_cert(remote)
-    await remote.async_start_pairing()
+    await asyncio.wait_for(remote.async_start_pairing(), timeout=20)
     if not code:
         print("PAIRING_CODE?", flush=True)
         code = input("Code shown on the TV: ").strip()
-    await remote.async_finish_pairing(code.strip().replace(" ", ""))
+    await asyncio.wait_for(remote.async_finish_pairing(code.strip().replace(" ", "")), timeout=20)
     print(f"Pairing complete: {name} ({host})")
 
 
@@ -631,7 +631,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("-d", "--device", help="Saved device name")
     parser.add_argument("--version", action="store_true", help="Show version and exit")
-    parser.add_argument("args", nargs="*")
+    parser.add_argument("args", nargs=argparse.REMAINDER)
     return parser
 
 

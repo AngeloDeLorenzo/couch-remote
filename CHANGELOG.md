@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4 - 2026-06-09
+
+- Fixed pairing command parsing when subcommand options are passed after `pair`
+- Added pairing timeouts so the setup UI reports unresponsive TVs instead of appearing stuck
+
 ## 1.0.3 - 2026-06-09
 
 - Fixed Android TV discovery inside Flatpak by using Python mDNS discovery instead of relying on the host `avahi-browse` command

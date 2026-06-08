@@ -55,6 +55,12 @@ class ConfigTest(unittest.TestCase):
         self.assertEqual(device["macros"]["service_menu"], ["SETTINGS", "DPAD_DOWN", "DPAD_CENTER"])
         self.assertEqual(cli.resolve_action(device, "service-menu"), ["SETTINGS", "DPAD_DOWN", "DPAD_CENTER"])
 
+    def test_subcommand_options_are_preserved(self):
+        parser = cli.build_parser()
+        args = parser.parse_args(["pair", "--name", "Test TV", "--host", "192.168.1.20"])
+
+        self.assertEqual(args.args, ["pair", "--name", "Test TV", "--host", "192.168.1.20"])
+
 
 if __name__ == "__main__":
     unittest.main()

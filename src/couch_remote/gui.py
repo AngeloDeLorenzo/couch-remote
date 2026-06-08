@@ -573,23 +573,29 @@ class SettingsDialog(Gtk.Dialog):
             stderr=subprocess.PIPE,
         )
         stdout = []
-        while True:
-            line = proc.stdout.readline()
-            if not line:
-                break
-            stdout.append(line)
-            if "PAIRING_CODE?" in line:
-                code_box = queue.Queue(maxsize=1)
-                GLib.idle_add(lambda: code_box.put(self.ask_code()) or False)
-                code = code_box.get()
-                if not code:
-                    proc.kill()
-                    GLib.idle_add(self.set_status, "Pairing canceled")
-                    return
-                proc.stdin.write(code + "\n")
-                proc.stdin.flush()
-        stderr = proc.stderr.read()
-        returncode = proc.wait()
+        try:
+            while True:
+                line = proc.stdout.readline()
+                if not line:
+                    break
+                stdout.append(line)
+                if "PAIRING_CODE?" in line:
+                    code_box = queue.Queue(maxsize=1)
+                    GLib.idle_add(lambda: code_box.put(self.ask_code()) or False)
+                    code = code_box.get()
+                    if not code:
+                        proc.kill()
+                        GLib.idle_add(self.set_status, "Pairing canceled")
+                        return
+                    proc.stdin.write(code + "\n")
+                    proc.stdin.flush()
+            stderr = proc.stderr.read()
+            returncode = proc.wait(timeout=45)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.communicate()
+            GLib.idle_add(self.set_status, "Pairing timed out. Check that the TV is on and accepts remote pairing.")
+            return
         result = subprocess.CompletedProcess(proc.args, returncode, "".join(stdout), stderr)
         GLib.idle_add(self.after_pair, result)
 
