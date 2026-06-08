@@ -23,7 +23,9 @@
 - [x] Capture public screenshot with a generic TV name
 - [ ] Test pairing on at least two additional Android TV or Google TV devices
 - [ ] Regenerate Flatpak manifest with offline Python dependency sources before Flathub submission
-- [ ] Create signed Git tag `v1.0.0`
+- [x] Create Git tag `v1.0.0`
+- [x] Push `main` and `v1.0.0` to GitHub
+- [x] Create GitHub release with wheel and source distribution
 
 ## Known Limitations
 
