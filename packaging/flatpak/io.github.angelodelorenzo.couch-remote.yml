@@ -75,5 +75,7 @@ modules:
       - install -Dm644 data/io.github.angelodelorenzo.couch-remote.metainfo.xml /app/share/metainfo/io.github.angelodelorenzo.couch-remote.metainfo.xml
       - install -Dm644 data/icons/hicolor/scalable/apps/io.github.angelodelorenzo.couch-remote.svg /app/share/icons/hicolor/scalable/apps/io.github.angelodelorenzo.couch-remote.svg
     sources:
-      - type: dir
-        path: ../..
+      - type: git
+        url: https://github.com/AngeloDeLorenzo/couch-remote.git
+        tag: v1.0.5
+        commit: a7a5da3e14cd42415d3cddb9fc86be48c64113c5
