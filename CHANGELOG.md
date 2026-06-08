@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.5 - 2026-06-09
+
+- Fixed the "Pair Selected" button in the setup window, which raised an internal error (an undefined reference) and never started pairing. The 1.0.4 command-parsing fix was not enough on its own because the graphical pairing path crashed before launching the pairing command.
+
 ## 1.0.4 - 2026-06-09
 
 - Fixed pairing command parsing when subcommand options are passed after `pair`

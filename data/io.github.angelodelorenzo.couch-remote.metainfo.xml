@@ -23,7 +23,7 @@
   <launchable type="desktop-id">io.github.angelodelorenzo.couch-remote.desktop</launchable>
   <categories>
     <category>Network</category>
-    <category>Utility</category>
+    <category>RemoteAccess</category>
   </categories>
   <content_rating type="oars-1.1" />
   <provides>
@@ -31,6 +31,11 @@
     <binary>couch-remote-gui</binary>
   </provides>
   <releases>
+    <release version="1.0.5" date="2026-06-09">
+      <description>
+        <p>Fixed the Pair Selected button in the setup window so pairing actually starts.</p>
+      </description>
+    </release>
     <release version="1.0.4" date="2026-06-09">
       <description>
         <p>Fixed pairing from the setup window.</p>

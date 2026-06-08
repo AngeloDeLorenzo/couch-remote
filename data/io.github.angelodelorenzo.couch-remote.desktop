@@ -5,5 +5,5 @@ Comment=Remote control for Android TV and Google TV
 Exec=couch-remote-gui
 Icon=io.github.angelodelorenzo.couch-remote
 Terminal=false
-Categories=Network;RemoteAccess;GTK;
+Categories=Network;RemoteAccess;
 Keywords=TV;Remote;Android TV;Google TV;Chromecast;

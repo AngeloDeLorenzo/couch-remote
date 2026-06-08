@@ -566,7 +566,7 @@ class SettingsDialog(Gtk.Dialog):
 
     def pair_worker(self, device):
         proc = subprocess.Popen(
-            [TV, "pair", "--name", device["name"], "--host", device["host"], "--mac", device["mac"]],
+            [*cli_command(), "pair", "--name", device["name"], "--host", device["host"], "--mac", device["mac"]],
             text=True,
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
