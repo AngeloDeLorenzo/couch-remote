@@ -23,8 +23,12 @@ KEYID="$(gpg --list-keys --with-colons "$KEY_NAME" | awk -F: '/^fpr:/{print $10;
 [ -n "$KEYID" ] || { echo "Signing key '$KEY_NAME' not found in the GPG keyring." >&2; exit 1; }
 echo "Signing with $KEYID"
 
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
+# Work under the repo (not /tmp): org.flatpak.Builder is sandboxed and cannot
+# see the host's private /tmp, so the ostree repo must live somewhere it can reach.
+WORK="$ROOT/.flatpak-publish"
+rm -rf "$WORK"
+mkdir -p "$WORK"
+trap 'rm -rf "$WORK" "$ROOT/.flatpak-builder"' EXIT
 SITE="$WORK/site"
 mkdir -p "$SITE"
 
