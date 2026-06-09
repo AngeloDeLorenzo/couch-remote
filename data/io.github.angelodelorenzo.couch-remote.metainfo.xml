@@ -19,6 +19,18 @@
       <image>https://raw.githubusercontent.com/AngeloDeLorenzo/couch-remote/main/docs/screenshots/main-window.png</image>
       <caption>Main remote control window</caption>
     </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/AngeloDeLorenzo/couch-remote/main/docs/screenshots/setup-window.png</image>
+      <caption>Device setup: scan, pair and manage TVs</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/AngeloDeLorenzo/couch-remote/main/docs/screenshots/key-tester-window.png</image>
+      <caption>Key tester for model-specific buttons</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/AngeloDeLorenzo/couch-remote/main/docs/screenshots/diagnostics-window.png</image>
+      <caption>Connection diagnostics</caption>
+    </screenshot>
   </screenshots>
   <launchable type="desktop-id">io.github.angelodelorenzo.couch-remote.desktop</launchable>
   <categories>
