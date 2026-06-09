@@ -1,0 +1,32 @@
+name: Build snap
+
+# Builds the snap on every relevant change to validate snap/snapcraft.yaml.
+# Publishing to the Snap Store is a separate, credentialed step (see README).
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "snap/**"
+      - "src/**"
+      - "pyproject.toml"
+      - "data/**"
+      - ".github/workflows/snap-build.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build snap
+        uses: snapcore/action-build@v1
+        id: build
+
+      - name: Upload snap artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: couch-remote-snap
+          path: ${{ steps.build.outputs.snap }}
+          if-no-files-found: error
