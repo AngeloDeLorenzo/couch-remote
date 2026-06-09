@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.7 - 2026-06-09
+
+- Discovered devices now get their network MAC address filled in automatically (read from the system ARP table during the scan), so Wake-on-LAN works without typing it by hand
+- Fixed the setup window discarding the MAC address found during a scan
+
 ## 1.0.6 - 2026-06-09
 
 - Reworked the remote window into a balanced two-column layout so it no longer runs off the bottom of smaller screens (it now fits comfortably at 720p and 1080p)

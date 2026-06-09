@@ -21,7 +21,7 @@ LEGACY_CERT = OLD_BASE / "client.pem"
 LEGACY_KEY = OLD_BASE / "key.pem"
 DEFAULT_NAME = "Living Room TV"
 CLIENT_NAME = "Couch Remote"
-VERSION = "1.0.6"
+VERSION = "1.0.7"
 
 ALIASES = {
     "ok": "DPAD_CENTER",
@@ -592,8 +592,39 @@ def _scan_devices_avahi() -> list[dict]:
     return list(unique.values())
 
 
+def _mac_for_host(host: str, timeout: float = 1.0) -> str:
+    """Best-effort network MAC lookup via the system ARP table.
+
+    mDNS discovery does not advertise the network MAC needed for Wake-on-LAN,
+    so we contact the device to populate the ARP cache and then read it back.
+    Works when the device is reachable on the local subnet (i.e. during a scan).
+    """
+    for port in (6466, 8009, 8008):
+        try:
+            with socket.create_connection((host, port), timeout=timeout):
+                break
+        except OSError:
+            continue
+    try:
+        with open("/proc/net/arp", encoding="utf-8") as fh:
+            next(fh, None)
+            for line in fh:
+                fields = line.split()
+                if len(fields) >= 4 and fields[0] == host:
+                    mac = fields[3].lower()
+                    if re.fullmatch(r"[0-9a-f:]{17}", mac) and mac != "00:00:00:00:00:00":
+                        return mac
+    except OSError:
+        pass
+    return ""
+
+
 def scan_devices() -> list[dict]:
-    return _scan_devices_zeroconf() or _scan_devices_avahi()
+    devices = _scan_devices_zeroconf() or _scan_devices_avahi()
+    for device in devices:
+        if not device.get("mac") and device.get("host"):
+            device["mac"] = _mac_for_host(device["host"])
+    return devices
 
 
 def list_devices() -> None:

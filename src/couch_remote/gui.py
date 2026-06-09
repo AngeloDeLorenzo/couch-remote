@@ -493,7 +493,7 @@ class SettingsDialog(Gtk.Dialog):
                 continue
             name, host, mac = re_match.groups()
             if host not in saved_hosts:
-                self.store.append([name, "androidtv", host, "", False])
+                self.store.append([name, "androidtv", host, mac.strip(), False])
                 count += 1
         self.set_status(f"Found {count} new devices")
         return False
