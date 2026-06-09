@@ -9,7 +9,7 @@ It provides a physical remote-style interface, network discovery, pairing, saved
 ## Features
 
 - Android TV / Google TV pairing over Android TV Remote v2
-- Local network discovery with Avahi
+- Local network discovery over mDNS (zeroconf, with an Avahi fallback)
 - Multiple saved TV profiles
 - Wake-on-LAN support
 - Configurable action-to-key mappings per TV
@@ -88,12 +88,16 @@ python3 -m venv .venv
 pip install -e .
 ```
 
-The GTK interface also requires PyGObject and GTK 3 from the system packages. Discovery requires `avahi-browse`.
+The GTK interface also requires PyGObject and GTK 3 from the system packages.
+Discovery uses the bundled `zeroconf` dependency; `avahi-browse` is only used as
+an optional fallback when the Python mDNS scan finds nothing.
 
 On Debian-based systems:
 
 ```bash
-sudo apt install python3-gi gir1.2-gtk-3.0 avahi-utils
+sudo apt install python3-gi gir1.2-gtk-3.0
+# optional, only for the discovery fallback:
+sudo apt install avahi-utils
 ```
 
 ## Usage
