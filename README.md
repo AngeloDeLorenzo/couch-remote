@@ -21,7 +21,22 @@ It provides a physical remote-style interface, network discovery, pairing, saved
 
 ## Install
 
-### Flatpak repository (recommended, auto-updating)
+### Snap Store
+
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/couch-remote)
+
+```bash
+sudo snap install couch-remote
+```
+
+The snap auto-updates. For automatic MAC detection (used by Wake-on-LAN) also
+connect the optional interface once:
+
+```bash
+sudo snap connect couch-remote:network-observe
+```
+
+### Flatpak repository (auto-updating)
 
 Install directly from the project's GPG-signed Flatpak repository:
 
