@@ -33,6 +33,7 @@ jobs:
 
       - name: Build and sign repository
         run: |
+          flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
           flatpak-builder --user --install-deps-from=flathub --force-clean \
             --repo=site/repo --gpg-sign="$KEYID" build \
             packaging/flatpak/io.github.angelodelorenzo.couch-remote.yml
