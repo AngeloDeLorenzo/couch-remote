@@ -38,7 +38,6 @@ class Remote(Gtk.Window):
         threading.Thread(target=self.worker, daemon=True).start()
 
         root = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
-        root.set_size_request(318, -1)
         root.get_style_context().add_class("remote-shell")
         self.add(root)
 
@@ -56,16 +55,23 @@ class Remote(Gtk.Window):
         settings.connect("clicked", self.open_settings)
         header.pack_start(settings, False, False, 0)
 
+        columns = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=14)
+        root.pack_start(columns, False, False, 0)
+        left = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        left.set_size_request(286, -1)
+        right = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        right.set_size_request(286, -1)
+        columns.pack_start(left, False, False, 0)
+        columns.pack_start(right, False, False, 0)
+
         top = self.grid(spacing=8, homogeneous=True)
-        top.set_margin_bottom(2)
-        root.pack_start(top, False, False, 0)
+        left.pack_start(top, False, False, 0)
         self.add_button(top, "⏻", ["power"], 0, 0, style="power-button")
         self.add_button(top, "Input", ["input"], 1, 0, style="secondary-button")
         self.add_button(top, "TV", ["tv"], 2, 0, style="secondary-button")
 
         numbers = self.grid(spacing=8, homogeneous=True)
-        numbers.set_margin_bottom(5)
-        root.pack_start(numbers, False, False, 0)
+        left.pack_start(numbers, False, False, 0)
         labels = (
             ("1", "1"), ("2", "2"), ("3", "3"),
             ("4", "4"), ("5", "5"), ("6", "6"),
@@ -76,25 +82,11 @@ class Remote(Gtk.Window):
             self.add_button(numbers, label, [key], index % 3, index // 3, height=44, style="number-button")
 
         home = self.grid(spacing=7, homogeneous=True)
-        home.set_margin_bottom(5)
-        root.pack_start(home, False, False, 0)
+        left.pack_start(home, False, False, 0)
         self.add_button(home, "⌂", ["home"], 0, 0, width=286, height=48, style="home-button", colspan=3)
 
-        rocker = self.grid(spacing=8, homogeneous=True)
-        rocker.set_margin_bottom(5)
-        root.pack_start(rocker, False, False, 0)
-        self.add_button(rocker, "+\nV", ["volume_up"], 0, 0, rowspan=2, height=82)
-        self.add_button(rocker, "Mute", ["mute"], 1, 0)
-        self.add_button(rocker, "P\n▲", ["channel_up"], 2, 0, rowspan=2, height=82)
-        self.add_button(rocker, "SUB", ["subtitle"], 1, 1)
-        self.add_button(rocker, "-\nV", ["volume_down"], 0, 2, rowspan=2, height=82)
-        self.add_button(rocker, "Guide", ["guide"], 1, 2)
-        self.add_button(rocker, "P\n▼", ["channel_down"], 2, 2, rowspan=2, height=82)
-        self.add_button(rocker, "Info", ["info"], 1, 3)
-
         dpad = self.grid(spacing=7, homogeneous=True)
-        dpad.set_margin_bottom(4)
-        root.pack_start(dpad, False, False, 0)
+        left.pack_start(dpad, False, False, 0)
         self.add_button(dpad, "Guide", ["guide"], 0, 0)
         self.add_button(dpad, "▲", ["up"], 1, 0, style="dpad-button")
         self.add_button(dpad, "Info", ["info"], 2, 0)
@@ -105,23 +97,19 @@ class Remote(Gtk.Window):
         self.add_button(dpad, "▼", ["down"], 1, 2, style="dpad-button")
         self.add_button(dpad, "Exit", ["exit"], 2, 2)
 
-        apps = self.grid(spacing=8, homogeneous=True)
-        apps.set_margin_bottom(2)
-        root.pack_start(apps, False, False, 0)
-        self.add_button(apps, "Netflix", ["launch", "netflix"], 0, 0, style="app-button")
-        self.add_button(apps, "YouTube", ["launch", "youtube"], 1, 0, style="youtube-button")
-        self.add_button(apps, "Prime", ["launch", "prime"], 2, 0, style="app-button")
-
-        utility = self.grid(spacing=8, homogeneous=True)
-        utility.set_margin_bottom(4)
-        root.pack_start(utility, False, False, 0)
-        self.add_button(utility, "Menu", ["menu"], 0, 0)
-        self.add_button(utility, "Search", ["search"], 1, 0)
-        self.add_button(utility, "Keyboard", ["keyboard"], 2, 0)
+        rocker = self.grid(spacing=8, homogeneous=True)
+        right.pack_start(rocker, False, False, 0)
+        self.add_button(rocker, "+\nV", ["volume_up"], 0, 0, rowspan=2, height=82)
+        self.add_button(rocker, "Mute", ["mute"], 1, 0)
+        self.add_button(rocker, "P\n▲", ["channel_up"], 2, 0, rowspan=2, height=82)
+        self.add_button(rocker, "SUB", ["subtitle"], 1, 1)
+        self.add_button(rocker, "-\nV", ["volume_down"], 0, 2, rowspan=2, height=82)
+        self.add_button(rocker, "Guide", ["guide"], 1, 2)
+        self.add_button(rocker, "P\n▼", ["channel_down"], 2, 2, rowspan=2, height=82)
+        self.add_button(rocker, "Info", ["info"], 1, 3)
 
         media = self.grid(spacing=7, homogeneous=True)
-        media.set_margin_bottom(2)
-        root.pack_start(media, False, False, 0)
+        right.pack_start(media, False, False, 0)
         self.add_button(media, "◀◀", ["rewind"], 0, 0, width=66, style="media-button")
         self.add_button(media, "▶", ["play"], 1, 0, width=66, style="play-button")
         self.add_button(media, "Ⅱ", ["pause"], 2, 0, width=66, style="media-button")
@@ -130,8 +118,20 @@ class Remote(Gtk.Window):
         self.add_button(media, "■", ["stop"], 1, 1, width=66, style="media-button")
         self.add_button(media, "TXT", ["teletext"], 2, 1, width=66, style="media-button", colspan=2)
 
+        apps = self.grid(spacing=8, homogeneous=True)
+        right.pack_start(apps, False, False, 0)
+        self.add_button(apps, "Netflix", ["launch", "netflix"], 0, 0, style="app-button")
+        self.add_button(apps, "YouTube", ["launch", "youtube"], 1, 0, style="youtube-button")
+        self.add_button(apps, "Prime", ["launch", "prime"], 2, 0, style="app-button")
+
+        utility = self.grid(spacing=8, homogeneous=True)
+        right.pack_start(utility, False, False, 0)
+        self.add_button(utility, "Menu", ["menu"], 0, 0)
+        self.add_button(utility, "Search", ["search"], 1, 0)
+        self.add_button(utility, "Keyboard", ["keyboard"], 2, 0)
+
         colors = self.grid(spacing=7, homogeneous=True)
-        root.pack_start(colors, False, False, 0)
+        right.pack_start(colors, False, False, 0)
         self.add_button(colors, "", ["red"], 0, 0, width=66, style="red-button", height=30)
         self.add_button(colors, "", ["green"], 1, 0, width=66, style="green-button", height=30)
         self.add_button(colors, "", ["yellow"], 2, 0, width=66, style="yellow-button", height=30)
@@ -270,12 +270,18 @@ class Remote(Gtk.Window):
         button.yellow-button { background: linear-gradient(to bottom, #ffe567, #e1b80f); color: #171717; }
         button.blue-button { background: linear-gradient(to bottom, #35a2ff, #1168bc); }
         label.status-label {
-            background: rgba(0,0,0,0.24);
-            border-radius: 7px;
-            color: #c9d0dc;
+            background: linear-gradient(to bottom, #6b7160, #727866 55%, #656b5a);
+            border: 1px solid #24271f;
+            border-radius: 6px;
+            color: #1f231a;
+            font-family: monospace;
             font-size: 12px;
-            min-height: 18px;
-            padding: 4px 7px;
+            letter-spacing: 1px;
+            min-height: 20px;
+            padding: 6px 10px;
+            box-shadow:
+                inset 0 2px 4px rgba(0,0,0,0.45),
+                inset 0 -1px rgba(255,255,255,0.08);
         }
         label.device-label {
             color: #f6f7f9;

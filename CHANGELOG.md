@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.6 - 2026-06-09
+
+- Reworked the remote window into a balanced two-column layout so it no longer runs off the bottom of smaller screens (it now fits comfortably at 720p and 1080p)
+- Restyled the status bar at the bottom as a recessed LCD-style display
+
 ## 1.0.5 - 2026-06-09
 
 - Fixed the "Pair Selected" button in the setup window, which raised an internal error (an undefined reference) and never started pairing. The 1.0.4 command-parsing fix was not enough on its own because the graphical pairing path crashed before launching the pairing command.

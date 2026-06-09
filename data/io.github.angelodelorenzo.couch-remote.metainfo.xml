@@ -31,6 +31,11 @@
     <binary>couch-remote-gui</binary>
   </provides>
   <releases>
+    <release version="1.0.6" date="2026-06-09">
+      <description>
+        <p>Reworked the window into a balanced two-column layout that fits smaller screens, and gave the status bar a recessed LCD-style look.</p>
+      </description>
+    </release>
     <release version="1.0.5" date="2026-06-09">
       <description>
         <p>Fixed the Pair Selected button in the setup window so pairing actually starts.</p>
