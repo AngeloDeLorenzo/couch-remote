@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Couch Remote — Flatpak repository</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; padding: 2.5rem 1.25rem;
+    background: #0f1115; color: #e7eaf0;
+    font-family: system-ui, sans-serif; line-height: 1.55;
+    display: flex; justify-content: center;
+  }
+  main { width: 100%; max-width: 720px; }
+  h1 { margin: 0 0 .25rem; font-size: 1.7rem; }
+  p.sub { margin: 0 0 1.75rem; color: #9aa3b2; }
+  h2 { font-size: 1.1rem; margin: 1.9rem 0 .6rem; }
+  a { color: #5aa6ff; }
+  .btn {
+    display: inline-block; margin: .4rem 0 1rem;
+    background: linear-gradient(to bottom, #2380df, #145199);
+    color: #fff; text-decoration: none; font-weight: 600;
+    padding: .7rem 1.2rem; border-radius: 9px;
+  }
+  pre {
+    background: #1a1d24; border: 1px solid #2a2e38; border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; font-size: .9rem;
+  }
+  code { font-family: ui-monospace, monospace; }
+  footer { margin-top: 2.4rem; color: #6b7280; font-size: .85rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Couch Remote</h1>
+  <p class="sub">GTK remote control for Android TV and Google TV devices on the local network.</p>
+
+  <a class="btn" href="couch-remote.flatpakref">Install via Flatpak</a>
+  <p>Your browser may ask to open the file with your software center. If nothing happens, use the commands below.</p>
+
+  <h2>Install from the terminal</h2>
+  <pre><code>flatpak install --user https://angelodelorenzo.github.io/couch-remote/couch-remote.flatpakref</code></pre>
+  <p>This installs the app and sets up this repository as its origin, so future versions arrive with a normal update.</p>
+
+  <h2>Keep it up to date</h2>
+  <pre><code>flatpak update</code></pre>
+
+  <h2>Add only the repository (without installing)</h2>
+  <pre><code>flatpak remote-add --user --if-not-exists couch-remote \
+  https://angelodelorenzo.github.io/couch-remote/couch-remote.flatpakrepo
+flatpak install --user couch-remote io.github.angelodelorenzo.couch-remote</code></pre>
+
+  <p>The app needs the <code>org.gnome.Platform</code> runtime, which Flatpak pulls from Flathub on first install.</p>
+
+  <footer>
+    Source code and bundles: <a href="https://github.com/AngeloDeLorenzo/couch-remote">github.com/AngeloDeLorenzo/couch-remote</a><br>
+    This repository is GPG-signed; the key is embedded in the <code>.flatpakref</code> / <code>.flatpakrepo</code> files.
+  </footer>
+</main>
+</body>
+</html>

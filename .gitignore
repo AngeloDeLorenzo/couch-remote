@@ -12,7 +12,7 @@ build-dir/
 repo/
 *.flatpak
 dist/
-ghp/
-flatpak-repo/
-site/
+/ghp/
+/flatpak-repo/
+/site/
 .flatpak-publish/
