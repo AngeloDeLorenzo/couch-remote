@@ -1,0 +1,72 @@
+name: Publish Flatpak repo
+
+# Rebuilds the GPG-signed Flatpak repository and publishes it to the gh-pages
+# branch on every version tag. Requires a repository secret GPG_PRIVATE_KEY
+# holding the ASCII-armored private signing key.
+#
+# NOTE: this CI build is best-effort (it builds a Flatpak inside a container).
+# The guaranteed path is scripts/publish-flatpak-repo.sh, which runs the exact
+# same steps on a machine where Flatpak already works. If a run fails, publish
+# locally with that script.
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Import signing key
+        run: |
+          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+          echo "KEYID=$(gpg --list-keys --with-colons | awk -F: '/^fpr:/{print $10; exit}')" >> "$GITHUB_ENV"
+
+      - name: Build and sign repository
+        run: |
+          flatpak-builder --user --install-deps-from=flathub --force-clean \
+            --repo=site/repo --gpg-sign="$KEYID" build \
+            packaging/flatpak/io.github.angelodelorenzo.couch-remote.yml
+          flatpak build-update-repo site/repo --gpg-sign="$KEYID" \
+            --generate-static-deltas --prune
+
+      - name: Assemble site
+        run: |
+          cp packaging/flatpak-repo/index.html site/index.html
+          touch site/.nojekyll
+          gpg --export "$KEYID" > site/couch-remote.gpg
+          GPGKEY=$(base64 -w0 site/couch-remote.gpg)
+          cat > site/couch-remote.flatpakref <<EOF
+          [Flatpak Ref]
+          Name=io.github.angelodelorenzo.couch-remote
+          Branch=master
+          Title=Couch Remote
+          Url=https://angelodelorenzo.github.io/couch-remote/repo
+          SuggestRemoteName=couch-remote
+          IsRuntime=false
+          GPGKey=$GPGKEY
+          RuntimeRepo=https://dl.flathub.org/repo/flathub.flatpakrepo
+          EOF
+          cat > site/couch-remote.flatpakrepo <<EOF
+          [Flatpak Repo]
+          Title=Couch Remote
+          Url=https://angelodelorenzo.github.io/couch-remote/repo
+          Homepage=https://github.com/AngeloDeLorenzo/couch-remote
+          Comment=Couch Remote Flatpak repository (Android TV / Google TV remote)
+          GPGKey=$GPGKEY
+          EOF
+
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: site

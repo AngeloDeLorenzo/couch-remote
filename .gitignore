@@ -12,3 +12,6 @@ build-dir/
 repo/
 *.flatpak
 dist/
+ghp/
+flatpak-repo/
+site/
