@@ -21,26 +21,45 @@ It provides a physical remote-style interface, network discovery, pairing, saved
 
 ## Install
 
-### Flatpak bundle (recommended)
+### Flatpak repository (recommended, auto-updating)
 
-Download the latest `couch-remote-*.flatpak` bundle from the
+Install directly from the project's GPG-signed Flatpak repository:
+
+```bash
+flatpak install --user https://angelodelorenzo.github.io/couch-remote/couch-remote.flatpakref
+flatpak run io.github.angelodelorenzo.couch-remote
+```
+
+This installs the app and registers the repository as its origin, so new
+versions arrive with a normal update:
+
+```bash
+flatpak update
+```
+
+The app needs the `org.gnome.Platform` runtime, which Flatpak pulls from Flathub
+on first install. The repository is built for x86_64.
+
+### Flatpak bundle (single file)
+
+Prefer a one-off, offline install? Download the latest `couch-remote-*.flatpak`
+bundle from the
 [Releases page](https://github.com/AngeloDeLorenzo/couch-remote/releases/latest),
-then install and run it:
+then:
 
 ```bash
 # One-time: add Flathub so the GNOME runtime can be downloaded
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakref
 
 # Install the downloaded bundle (adjust the filename to the version you got)
-flatpak install --user couch-remote-1.0.5.flatpak
+flatpak install --user couch-remote-1.0.6.flatpak
 
 flatpak run io.github.angelodelorenzo.couch-remote
 ```
 
-The bundle is built for x86_64. It does not ship the runtime: on first install
-Flatpak pulls `org.gnome.Platform` from Flathub automatically.
+A bundle does not auto-update; reinstall a newer one to upgrade.
 
-To uninstall:
+To uninstall (either method):
 
 ```bash
 flatpak uninstall --user io.github.angelodelorenzo.couch-remote
