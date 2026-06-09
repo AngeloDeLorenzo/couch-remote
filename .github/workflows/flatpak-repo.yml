@@ -33,8 +33,9 @@ jobs:
 
       - name: Build and sign repository
         run: |
+          dbus-uuidgen --ensure=/etc/machine-id || true
           flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-          flatpak-builder --user --install-deps-from=flathub --force-clean \
+          flatpak-builder --user --disable-rofiles-fuse --install-deps-from=flathub --force-clean \
             --repo=site/repo --gpg-sign="$KEYID" build \
             packaging/flatpak/io.github.angelodelorenzo.couch-remote.yml
           flatpak build-update-repo site/repo --gpg-sign="$KEYID" \
