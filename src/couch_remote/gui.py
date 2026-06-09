@@ -21,6 +21,10 @@ DEVICES = BASE / "devices.json"
 
 
 def cli_command() -> list[str]:
+    # Inside a snap, PATH and the entry-point wrapper are unreliable; invoke the
+    # module with the current interpreter, which always has the right environment.
+    if os.environ.get("SNAP"):
+        return [sys.executable, "-m", "couch_remote"]
     if CLI_COMMAND:
         return [CLI_COMMAND]
     return [sys.executable, "-m", "couch_remote"]
