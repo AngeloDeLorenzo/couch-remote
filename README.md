@@ -19,6 +19,33 @@ It provides a physical remote-style interface, network discovery, pairing, saved
 - GTK desktop interface
 - Command line interface
 
+## Install
+
+### Flatpak bundle (recommended)
+
+Download the latest `couch-remote-*.flatpak` bundle from the
+[Releases page](https://github.com/AngeloDeLorenzo/couch-remote/releases/latest),
+then install and run it:
+
+```bash
+# One-time: add Flathub so the GNOME runtime can be downloaded
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakref
+
+# Install the downloaded bundle (adjust the filename to the version you got)
+flatpak install --user couch-remote-1.0.5.flatpak
+
+flatpak run io.github.angelodelorenzo.couch-remote
+```
+
+The bundle is built for x86_64. It does not ship the runtime: on first install
+Flatpak pulls `org.gnome.Platform` from Flathub automatically.
+
+To uninstall:
+
+```bash
+flatpak uninstall --user io.github.angelodelorenzo.couch-remote
+```
+
 ## Install For Development
 
 ```bash
@@ -106,6 +133,22 @@ The app id is:
 
 ```text
 io.github.angelodelorenzo.couch-remote
+```
+
+To build and install it locally:
+
+```bash
+flatpak install flathub org.gnome.Platform//50 org.gnome.Sdk//50 org.flatpak.Builder
+flatpak run org.flatpak.Builder --force-clean --install --user builddir \
+  packaging/flatpak/io.github.angelodelorenzo.couch-remote.yml
+```
+
+To produce the single-file `.flatpak` bundle attached to releases:
+
+```bash
+flatpak run org.flatpak.Builder --force-clean --repo=repo builddir \
+  packaging/flatpak/io.github.angelodelorenzo.couch-remote.yml
+flatpak build-bundle repo couch-remote.flatpak io.github.angelodelorenzo.couch-remote master
 ```
 
 ## Limitations
