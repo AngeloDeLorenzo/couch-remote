@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.8 - 2026-06-14
+
+- Corrected the Prime Video launcher button styling to use a blue button with white text
+
 ## 1.0.7 - 2026-06-09
 
 - Discovered devices now get their network MAC address filled in automatically (read from the system ARP table during the scan), so Wake-on-LAN works without typing it by hand

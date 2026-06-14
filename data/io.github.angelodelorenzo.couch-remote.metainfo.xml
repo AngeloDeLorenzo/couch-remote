@@ -43,6 +43,11 @@
     <binary>couch-remote-gui</binary>
   </provides>
   <releases>
+    <release version="1.0.8" date="2026-06-14">
+      <description>
+        <p>Corrected the Prime Video launcher button colors.</p>
+      </description>
+    </release>
     <release version="1.0.7" date="2026-06-09">
       <description>
         <p>Discovered devices now get their MAC address detected automatically, so Wake-on-LAN works without entering it by hand.</p>

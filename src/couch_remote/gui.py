@@ -126,7 +126,7 @@ class Remote(Gtk.Window):
         right.pack_start(apps, False, False, 0)
         self.add_button(apps, "Netflix", ["launch", "netflix"], 0, 0, style="app-button")
         self.add_button(apps, "YouTube", ["launch", "youtube"], 1, 0, style="youtube-button")
-        self.add_button(apps, "Prime", ["launch", "prime"], 2, 0, style="app-button")
+        self.add_button(apps, "Prime", ["launch", "prime"], 2, 0, style="prime-button")
 
         utility = self.grid(spacing=8, homogeneous=True)
         right.pack_start(utility, False, False, 0)
@@ -262,6 +262,10 @@ class Remote(Gtk.Window):
         }
         button.youtube-button {
             background: linear-gradient(to bottom, #f02b33, #b9131a);
+            color: white;
+        }
+        button.prime-button {
+            background: linear-gradient(to bottom, #0aa6ff, #006ed3);
             color: white;
         }
         button.record-button {

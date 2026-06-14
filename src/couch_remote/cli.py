@@ -21,7 +21,7 @@ LEGACY_CERT = OLD_BASE / "client.pem"
 LEGACY_KEY = OLD_BASE / "key.pem"
 DEFAULT_NAME = "Living Room TV"
 CLIENT_NAME = "Couch Remote"
-VERSION = "1.0.7"
+VERSION = "1.0.8"
 
 ALIASES = {
     "ok": "DPAD_CENTER",
