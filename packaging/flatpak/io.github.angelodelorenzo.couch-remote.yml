@@ -77,5 +77,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/AngeloDeLorenzo/couch-remote.git
-        tag: v1.0.7
-        commit: 08fe8cc5d00c29820f16d94099be946033a21d2d
+        tag: v1.0.8
+        commit: c2943c2b6a0f4eb30c68f09d2b145d5d432c7210
