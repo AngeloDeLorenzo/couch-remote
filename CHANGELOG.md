@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.9 - 2026-10-27
+
+- Repair saved pairing-certificate paths after Snap revision changes, using the existing credentials copied by snapd without changing custom certificate paths.
+- Rebuild the Snap with updated Ubuntu packages, including the libxml2 fixes for USN-8910-1.
+
 ## 1.0.8 - 2026-06-14
 
 - Corrected the Prime Video launcher button styling to use a blue button with white text

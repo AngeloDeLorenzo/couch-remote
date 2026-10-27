@@ -61,6 +61,50 @@ class ConfigTest(unittest.TestCase):
 
         self.assertEqual(args.args, ["pair", "--name", "Test TV", "--host", "192.168.1.20"])
 
+    def test_snap_refresh_relocates_and_persists_copied_credentials(self):
+        current = self.base / "snap/couch-remote/4"
+        base = current / ".config/couch-remote"
+        old = current.parent / "1/.config/couch-remote/devices/Test-TV"
+        with mock.patch.dict(cli.os.environ, {"SNAP_USER_DATA": str(current)}), \
+             mock.patch.object(cli, "BASE", base), \
+             mock.patch.object(cli, "DEVICES", base / "devices.json"):
+            cli.put_device("Test TV", "192.168.1.20", cert=str(old / "client.pem"), key=str(old / "key.pem"))
+            target = base / "devices/Test-TV"
+            (target / "client.pem").write_text("test certificate")
+            (target / "key.pem").write_text("test key")
+            device = cli.get_device()
+            self.assertEqual(device["cert"], str(target / "client.pem"))
+            self.assertEqual(device["key"], str(target / "key.pem"))
+            persisted = cli.json.loads(cli.DEVICES.read_text())
+            self.assertEqual(persisted["devices"]["Test TV"]["cert"], device["cert"])
+            self.assertEqual(cli.get_device(), device)
+
+    def test_snap_refresh_preserves_custom_or_incomplete_credentials(self):
+        current = self.base / "snap/couch-remote/4"
+        base = current / ".config/couch-remote"
+        old = current.parent / "1/.config/couch-remote/devices/Test-TV"
+        with mock.patch.dict(cli.os.environ, {"SNAP_USER_DATA": str(current)}), \
+             mock.patch.object(cli, "BASE", base):
+            target = base / "devices/Test-TV"
+            target.mkdir(parents=True)
+            (target / "client.pem").write_text("test certificate")
+            device = {"name": "Test TV", "cert": str(old / "client.pem"), "key": str(old / "key.pem")}
+            original = dict(device)
+            cli.relocate_snap_credentials(device)
+            self.assertEqual(device, original)
+            (target / "key.pem").write_text("test key")
+            device["cert"] = str(self.base / "custom.pem")
+            original = dict(device)
+            cli.relocate_snap_credentials(device)
+            self.assertEqual(device, original)
+
+    def test_non_snap_credentials_are_unchanged(self):
+        device = {"name": "Test TV", "cert": "/custom/client.pem", "key": "/custom/key.pem"}
+        original = dict(device)
+        with mock.patch.dict(cli.os.environ, {}, clear=True):
+            cli.relocate_snap_credentials(device)
+        self.assertEqual(device, original)
+
 
 if __name__ == "__main__":
     unittest.main()

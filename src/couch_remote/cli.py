@@ -21,7 +21,7 @@ LEGACY_CERT = OLD_BASE / "client.pem"
 LEGACY_KEY = OLD_BASE / "key.pem"
 DEFAULT_NAME = "Living Room TV"
 CLIENT_NAME = "Couch Remote"
-VERSION = "1.0.8"
+VERSION = "1.0.9"
 
 ALIASES = {
     "ok": "DPAD_CENTER",
@@ -183,7 +183,36 @@ def normalize_device(device: dict) -> dict:
     device.setdefault("macros", {})
     for action, key in DEFAULT_ACTION_MAP.items():
         device["actions"].setdefault(action, key)
+    relocate_snap_credentials(device)
     return device
+
+
+def relocate_snap_credentials(device: dict) -> None:
+    """Use credentials copied by snapd into the current revision's data folder."""
+    snap_data = os.environ.get("SNAP_USER_DATA")
+    if not snap_data:
+        return
+    current = Path(snap_data)
+    config_path = Path(".config/couch-remote")
+    if BASE != current / config_path:
+        return
+    relative_dir = config_path / "devices" / slugify(device.get("name", "tv"))
+    replacements = {}
+    for field, filename in (("cert", "client.pem"), ("key", "key.pem")):
+        saved = Path(device.get(field, ""))
+        try:
+            relative = saved.relative_to(current.parent)
+        except ValueError:
+            return
+        if not relative.parts or not relative.parts[0].isdigit():
+            return
+        if Path(*relative.parts[1:]) != relative_dir / filename:
+            return
+        target = current / relative_dir / filename
+        if not target.is_file():
+            return
+        replacements[field] = str(target)
+    device.update(replacements)
 
 
 def load_config() -> dict:
